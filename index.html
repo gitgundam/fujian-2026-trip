@@ -2,463 +2,1067 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>山海之间 · 福建国庆自驾路书 · 2026</title>
-<meta name="description" content="2026.09.30–10.07 桐乡往返 · 福州 平潭 厦门 晋江 · 8天7晚自驾路书">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f3f5f4">
+<title>山海之间，福建国庆自驾路书</title>
+<meta name="description" content="2026年9月30日到10月7日，桐乡往返福建。福州、平潭、厦门、晋江，八天七晚自驾路书。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%238a341c'/%3E%3C/svg%3E">
 <style>
-:root{
-  --bg:#fafaf8;
-  --card:#ffffff;
-  --text:#1d1d1f;
-  --gray:#86868b;
-  --gray-2:#6e6e73;
-  --line:rgba(0,0,0,.09);
-  --accent:#c14e2c;
-  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+/* 冷海岸路书。方差 5 / 动效 4 / 密度 6。一个浅色主题，朱红只做强调。 */
+:root {
+  --paper: #f3f5f4;
+  --surface: #fbfcfb;
+  --ink: #1a2421;
+  --ink-2: #3e4c48;
+  --weak: #5e6c68;
+  --line: rgba(26, 36, 33, .12);
+  --accent: #c4512e;
+  --accent-ink: #8a341c;
+  --accent-soft: #f6e8e2;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --sans: "PingFang SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --serif: "Songti SC", "Noto Serif SC", "Songti TC", "STSong", serif;
+  --shadow: 0 10px 28px rgba(26, 36, 33, .06);
+  --z-bar: 10;
+  --z-dock: 20;
+  --z-skip: 30;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:var(--font);font-weight:400;
-  line-height:1.75;-webkit-font-smoothing:antialiased;
-  font-variant-numeric:tabular-nums;
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
 }
-::selection{background:var(--accent);color:#fff}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:760px;margin:0 auto;padding:0 22px}
-section{scroll-margin-top:72px}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button, input { font: inherit; }
+::selection { background: var(--accent-soft); color: var(--ink); }
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  z-index: var(--z-skip);
+  transform: translateY(-140%);
+  background: var(--accent-ink);
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+.skip:focus { transform: none; }
 
-/* reveal */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease-out,transform .55s ease-out}
-.rv.on{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .rv{opacity:1;transform:none;transition:none}
-  .alt-body{transition:none!important}
+.app { min-height: 100dvh; }
+.rail, .context { display: none; }
+.stage { min-width: 0; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-bar);
+  background: rgba(243, 245, 244, .94);
+  border-bottom: 1px solid var(--line);
+}
+.brandrow {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+}
+.brandrow a {
+  font-weight: 650;
+  text-decoration: none;
+  letter-spacing: .04em;
+}
+.daystrip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 16px 10px;
+  scroll-snap-type: x proximity;
+}
+.chip {
+  flex: none;
+  scroll-snap-align: start;
+  min-height: 44px;
+  min-width: 64px;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  color: var(--ink-2);
+}
+.chip small { font-size: 11px; color: var(--weak); line-height: 1.2; }
+.chip b { font-size: 14px; font-weight: 620; line-height: 1.2; }
+.chip[aria-current="page"] { background: var(--accent-ink); color: #fff; }
+.chip[aria-current="page"] small { color: rgba(255,255,255,.82); }
+.chip:active { transform: translateY(1px); }
+
+.dock {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: var(--z-dock);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  min-height: 64px;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+.dock a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.dock a[aria-current="page"] { color: var(--accent-ink); font-weight: 700; }
+.dock a:active { transform: translateY(1px); }
+
+main {
+  padding: 18px 16px 28px;
+}
+body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+
+.hero-photo, .day-photo {
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background: #e4e8e6;
+}
+.hero-photo { height: clamp(168px, 28vh, 240px); }
+.hero-copy { padding: 18px 2px 0; }
+.kicker { margin: 0; font-size: 14px; color: var(--ink-2); }
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 6vw, 40px);
+  font-weight: 680;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+.hero h1, .quote, .rail-brand { font-family: var(--serif); font-weight: 600; }
+.hero h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(40px, 10vw, 64px);
+  line-height: 1.12;
+}
+.love {
+  margin: 0 0 18px;
+  max-width: 28em;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.btn:hover { background: #b34424; }
+.btn:active { transform: translateY(1px); }
+
+.block { margin-top: 36px; }
+h2.sec {
+  margin: 0 0 8px;
+  font-size: 22px;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+}
+.lead {
+  margin: 0 0 16px;
+  max-width: 38em;
+  color: var(--ink-2);
+  text-wrap: pretty;
 }
 
-/* top nav */
-#nav{position:fixed;top:0;left:0;right:0;z-index:50;
-  background:rgba(250,250,248,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  transform:translateY(-100%);transition:transform .4s ease-out}
-#nav.show{transform:none}
-#nav .bar{max-width:760px;margin:0 auto;padding:0 16px;height:52px;
-  display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
-#nav .bar::-webkit-scrollbar{display:none}
-#nav .brand{font-weight:700;font-size:14px;letter-spacing:.06em;margin-right:8px;white-space:nowrap}
-#nav a{flex:none;font-size:12.5px;color:var(--gray-2);padding:4px 9px;border-radius:14px;transition:color .25s,background .25s}
-#nav a:hover{color:var(--text)}
-#nav a.act{background:var(--text);color:#fff}
-#nav .dv{flex:none;width:1px;height:16px;background:var(--line);margin:0 4px}
+.stops { position: relative; }
+.stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  column-gap: 12px;
+  row-gap: 2px;
+  padding: 12px 8px;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.stop:hover { background: rgba(26, 36, 33, .04); }
+.stop:active { transform: translateY(1px); }
+.stop i {
+  grid-row: 1 / span 3;
+  justify-self: center;
+  width: 9px;
+  height: 9px;
+  margin-top: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--weak);
+  background: var(--paper);
+  position: relative;
+  z-index: 1;
+}
+.stop.end i { background: var(--accent); border-color: var(--accent); }
+.stops::before {
+  content: "";
+  position: absolute;
+  left: 16.5px;
+  top: 28px;
+  bottom: 28px;
+  width: 1px;
+  background: var(--line);
+}
+.stop .city { font-size: 17px; font-weight: 650; }
+.stop .when, .stop .drive { grid-column: 2; color: var(--ink-2); font-size: 14px; }
+.stop .drive { color: var(--weak); }
 
-/* hero */
-#hero{min-height:92svh;display:flex;align-items:center}
-#hero .in{padding:120px 0 80px}
-.kicker{font-size:12.5px;font-weight:600;letter-spacing:.32em;color:var(--accent);margin-bottom:22px}
-#hero h1{font-size:clamp(38px,8.4vw,62px);font-weight:700;letter-spacing:.01em;line-height:1.22}
-#hero .date{margin-top:18px;font-size:clamp(15px,3.4vw,18px);color:var(--gray-2);letter-spacing:.04em;overflow-wrap:break-word}
-@media(max-width:560px){#hero .date{font-size:14px;letter-spacing:0}}
-#cd{margin-top:40px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
-#cd .c{display:flex;align-items:baseline;gap:5px}
-#cd .v{font-size:clamp(24px,5.4vw,32px);font-weight:600;line-height:1}
-#cd .u{font-size:12px;color:var(--gray)}
-#cd .cap{width:100%;font-size:12px;color:var(--gray);margin-top:2px;letter-spacing:.05em}
-#hero .love{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);
-  font-size:15.5px;color:var(--gray-2)}
-.scroll-hint{margin-top:56px;font-size:11.5px;letter-spacing:.3em;color:var(--gray)}
+.open-item {
+  display: block;
+  padding: 14px 2px;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+.open-item:last-child { border-bottom: 1px solid var(--line); }
+.open-item:hover { background: rgba(26, 36, 33, .03); }
+.open-item:active { transform: translateY(1px); }
+.open-item b { display: block; font-weight: 600; font-size: 16px; }
+.open-item span { display: block; margin-top: 4px; color: var(--weak); font-size: 13px; }
+.quiet { color: var(--ink-2); }
 
-/* section head */
-.sec{padding:84px 0 8px}
-.sh{margin-bottom:36px}
-.sh .k{font-size:11.5px;font-weight:600;letter-spacing:.3em;color:var(--accent);margin-bottom:10px}
-.sh h2{font-size:clamp(24px,5.4vw,32px);font-weight:700;letter-spacing:.02em}
-.sh p{margin-top:8px;font-size:13.5px;color:var(--gray)}
+.total-link {
+  display: block;
+  padding: 8px 0 4px;
+  text-decoration: none;
+}
+.total-link:hover .total-num { color: var(--accent-ink); }
+.total-num {
+  display: block;
+  font-size: clamp(36px, 8vw, 52px);
+  font-weight: 680;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  color: var(--accent-ink);
+}
+.total-sub { color: var(--ink-2); font-size: 15px; }
 
-/* route */
-.stops{position:relative;margin-left:6px}
-.stop{position:relative;padding:0 0 34px 30px;border-left:1px solid var(--line)}
-.stop:last-child{padding-bottom:4px}
-.stop::before{content:"";position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;
-  background:var(--bg);border:1.5px solid var(--gray)}
-.stop.end::before{background:var(--accent);border-color:var(--accent)}
-.stop .t{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.stop .city{font-size:16.5px;font-weight:600}
-.stop .dt{font-size:12.5px;color:var(--gray)}
-.stop .dr{margin-top:3px;font-size:12.5px;color:var(--gray-2)}
+.day-tools { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+.glance-btn {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 620;
+  cursor: pointer;
+}
+.glance-btn:hover { background: #eef2f0; }
+.glance-btn:active { transform: translateY(1px); }
+body.glance .glance-btn { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
 
-/* day block */
-.day{padding:64px 0;border-top:1px solid var(--line)}
-.day-head{display:grid;grid-template-columns:110px 1fr;gap:6px 22px;align-items:start;margin-bottom:34px}
-.dno{font-size:clamp(54px,11vw,80px);font-weight:700;line-height:.95;color:rgba(0,0,0,.09);letter-spacing:-.02em}
-.dtt .dt1{font-size:13px;color:var(--gray);letter-spacing:.08em}
-.dtt .dt2{font-size:clamp(19px,4.6vw,24px);font-weight:700;margin-top:4px;letter-spacing:.02em}
-.dtt .meta{margin-top:8px;font-size:12.5px;color:var(--gray-2)}
-.dtt .plan{grid-column:1/-1;margin-top:14px;font-size:14.5px;color:var(--text);max-width:640px}
-@media(max-width:560px){.day-head{grid-template-columns:1fr}.dno{font-size:56px}}
+.day-photo { height: clamp(150px, 24vh, 210px); margin-bottom: 16px; }
+.day-date { margin: 0; color: var(--weak); font-size: 14px; }
+.day h1 { font-size: clamp(28px, 6vw, 36px); margin: 4px 0 8px; }
+.is-off { display: none; }
+.stay-chip.static { background: transparent; color: var(--ink-2); padding-left: 0; }
+.context-lab { margin-top: 22px; }
+.context-copy { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; max-width: 36em; }
+.context .stay { padding-left: 0; padding-right: 0; }
+.home-line { margin: 8px 0; font-weight: 680; }
+.rules-title { margin-top: 36px; }
+.noscript-note { padding: 24px; }
+#route, #open-block, .stay, .group, .day { scroll-margin-top: 112px; }
+.meta, .plan, .how, .cut, .note, .ask { max-width: 40em; text-wrap: pretty; }
+.meta { margin: 0 0 8px; color: var(--ink-2); font-size: 15px; }
+.plan { margin: 0 0 14px; font-size: 16px; }
+.stay-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 4px 0 16px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  text-decoration: none;
+  font-weight: 620;
+}
+.stay-chip:hover { background: #f0ddd4; }
+.stay-chip:active { transform: translateY(1px); }
+.note {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  color: var(--ink-2);
+  font-size: 15px;
+}
+.note .lab { color: var(--accent-ink); }
 
-/* timeline */
-.tl{border-top:1px solid var(--line)}
-.sg{display:grid;grid-template-columns:86px 26px 1fr;padding:16px 0;border-bottom:1px solid var(--line)}
-.sg .tm{font-size:12.5px;color:var(--gray);padding-top:3px;letter-spacing:.02em}
-.sg .rl{position:relative}
-.sg .rl::before{content:"";position:absolute;left:50%;top:-16px;bottom:-16px;width:1px;background:var(--line)}
-.sg:first-child .rl::before{top:8px}
-.sg:last-child .rl::before{bottom:auto;height:12px}
-.sg .rl i{position:absolute;left:50%;top:8px;transform:translateX(-50%);
-  width:7px;height:7px;border-radius:50%;background:var(--bg);border:1.5px solid #b9b9be}
-.sg .bd .act{font-size:14.5px;font-weight:500;line-height:1.6}
-.sg .bd .hint{margin-top:3px;font-size:12.5px;color:var(--gray);line-height:1.7}
-@media(max-width:560px){.sg{grid-template-columns:64px 22px 1fr}}
+.seg { padding: 16px 0; border-top: 1px solid var(--line); }
+.seg:last-child { border-bottom: 1px solid var(--line); }
+.tm { margin: 0; color: var(--accent-ink); font-size: 13px; font-weight: 700; }
+.act { margin: 2px 0 0; font-size: 17px; line-height: 1.45; font-weight: 680; }
+.how, .cut { margin: 10px 0 0; color: var(--ink-2); font-size: 15px; }
+.cut { margin-top: 12px; padding-left: 12px; border-left: 2px solid var(--accent); }
+.lab { display: block; margin-bottom: 2px; font-size: 12px; font-weight: 650; color: var(--weak); }
+.cut .lab { color: var(--accent-ink); }
+body.glance .how, body.glance .cut { display: none; }
+body.glance .act { font-size: 20px; }
+body.glance .tm { font-size: 15px; }
 
-/* alternatives collapse */
-.alt{margin-top:22px}
-.alt-btn{width:100%;text-align:left;background:none;border:none;cursor:pointer;
-  font-family:var(--font);font-size:13px;color:var(--gray-2);padding:12px 2px;
-  border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;
-  transition:color .25s}
-.alt-btn:hover{color:var(--accent)}
-.alt-btn .ar{transition:transform .35s ease-out;font-size:11px}
-.day.alt-open .alt-btn .ar{transform:rotate(180deg)}
-.alt-body{max-height:0;overflow:hidden;transition:max-height .5s ease-out}
-.alt-list{padding:2px 2px 8px}
-.alt-list li{list-style:none;display:grid;grid-template-columns:86px 1fr;gap:18px;
-  padding:9px 0;border-bottom:1px dashed var(--line);font-size:12.5px;color:var(--gray-2)}
-.alt-list li:last-child{border-bottom:none}
-.alt-list li .lt{color:var(--gray)}
-@media(max-width:560px){.alt-list li{grid-template-columns:64px 1fr}}
+.pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; }
+.pager a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-ink);
+  font-weight: 680;
+  text-decoration: none;
+}
+.pager a:active { transform: translateY(1px); }
 
-/* simple lists (stay / budget / tips) */
-.rows{border-top:1px solid var(--line)}
-.row{display:flex;align-items:baseline;gap:16px;padding:15px 2px;border-bottom:1px solid var(--line)}
-.row .rd{flex:none;width:56px;font-size:13px;color:var(--gray)}
-.row .rb{flex:1;min-width:0}
-.row .rb .rn{font-size:14.5px;font-weight:500}
-.row .rb .rs{font-size:12.5px;color:var(--gray);margin-top:2px}
-.row .rp{flex:none;font-size:14.5px;font-weight:600}
-.row .rp small{display:block;font-size:11px;font-weight:400;color:var(--gray);text-align:right}
-.row.total .rn{font-size:16px;font-weight:700}
-.row.total .rp{font-size:19px;font-weight:700;color:var(--accent)}
-.row.sub .rn,.row.sub .rp{color:var(--gray-2);font-weight:400}
-.note-line{margin-top:14px;font-size:12px;color:var(--gray)}
+.stay {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 6px 12px;
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: inherit;
+}
+.stay:hover { background: rgba(26, 36, 33, .04); }
+.stay:active { transform: translateY(1px); }
+.stay .date { color: var(--weak); font-size: 14px; }
+.pill {
+  justify-self: start;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+}
+.pill.on { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
+.stay .price { font-weight: 700; text-align: right; }
+.stay .price small { display: block; font-weight: 450; color: var(--weak); font-size: 12px; }
+.stay .name { grid-column: 1 / -1; font-size: 17px; font-weight: 680; }
+.ask { grid-column: 1 / -1; margin: 0; color: var(--ink-2); font-size: 15px; }
 
-.todo li{list-style:none;display:flex;gap:14px;padding:13px 2px;border-bottom:1px solid var(--line);
-  font-size:13.5px;align-items:baseline}
-.todo li .sq{flex:none;width:8px;height:8px;border:1.5px solid var(--accent);border-radius:2px;transform:translateY(0)}
-.todo li .wh{margin-left:auto;flex:none;font-size:11.5px;color:var(--gray);white-space:nowrap}
-.todo{border-top:1px solid var(--line)}
-.rules{margin-top:44px}
-.rules li{list-style:none;padding:12px 2px;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--gray-2)}
-.rules li b{color:var(--text);font-weight:600}
-.rules{border-top:1px solid var(--line)}
-.ghead{margin:44px 0 16px;font-size:12px;font-weight:600;letter-spacing:.26em;color:var(--gray)}
+.budget-top { margin-bottom: 18px; }
+.brow { padding: 14px 0; border-top: 1px solid var(--line); }
+.brow:last-of-type { border-bottom: 1px solid var(--line); }
+.brow-top { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+.bname { font-weight: 650; }
+.bamt { font-weight: 720; }
+.bdetail { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; max-width: 40em; }
+.bar {
+  display: block;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--accent);
+  transform-origin: left center;
+}
+.brow.sub .bname, .brow.sub .bamt, .brow.sub .bdetail { color: var(--ink-2); font-weight: 500; }
+.brow.sub .bar { background: var(--accent-ink); opacity: .45; }
+.foot-note { margin: 14px 0 0; color: var(--weak); font-size: 14px; max-width: 40em; }
 
-/* footer */
-#fin{padding:110px 0 90px;text-align:center}
-#fin .q{font-size:clamp(20px,5vw,27px);font-weight:700;letter-spacing:.04em}
-#fin .q em{font-style:normal;color:var(--accent)}
-#fin .s{margin-top:16px;font-size:12px;letter-spacing:.22em;color:var(--gray)}
+.group { margin-top: 22px; }
+.group h2 { margin: 0 0 4px; font-size: 18px; }
+.tasks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.task {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 4px 12px;
+  align-items: start;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.task input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); }
+.task-text { font-size: 16px; }
+.when { grid-column: 2; color: var(--weak); font-size: 13px; }
+.rule { margin: 0; padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--ink-2); max-width: 40em; }
+.rule strong { color: var(--ink); }
+.rule.hard { padding-left: 12px; border-left: 2px solid var(--accent); }
+
+.fin { margin-top: 48px; padding-top: 8px; }
+.quote { margin: 0; font-size: clamp(22px, 4vw, 28px); line-height: 1.35; }
+.fin-sub { margin: 8px 0 0; color: var(--weak); font-size: 13px; }
+.print-only { display: none; }
+
+@media (min-width: 800px) {
+  .task { grid-template-columns: 28px 1fr auto; align-items: center; }
+  .when { grid-column: auto; white-space: nowrap; }
+}
+@media (min-width: 1024px) {
+  body { padding-bottom: 0; }
+  .dock, .topbar { display: none; }
+  .app {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 760px);
+    justify-content: center;
+  }
+  .app.has-day {
+    grid-template-columns: 200px minmax(0, 1fr) 250px;
+    justify-content: stretch;
+  }
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    overflow: auto;
+    padding: 22px 14px;
+    border-right: 1px solid var(--line);
+  }
+  .rail-brand {
+    font-family: var(--serif);
+    font-size: 22px;
+    text-decoration: none;
+    padding: 6px 10px 14px;
+  }
+  .rail a[data-nav], .rail-day {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--ink-2);
+  }
+  .rail-day small { width: 42px; flex: none; color: var(--weak); font-size: 12px; }
+  .rail a:hover { background: rgba(26, 36, 33, .04); color: var(--ink); }
+  .rail a[aria-current="page"] {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-weight: 700;
+  }
+  .rail a[aria-current="page"] small { color: var(--accent-ink); }
+  .rail-gap { height: 12px; }
+  .app.has-day .context {
+    display: block;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    max-height: 100dvh;
+    overflow: auto;
+    padding: 28px 22px;
+    border-left: 1px solid var(--line);
+  }
+  main { padding: 32px 32px 64px; }
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .hero-photo { height: 320px; }
+  .hero-copy { padding: 0; }
+  .day-note-inline, .stay-chip { display: none; }
+  .context .name { font-size: 16px; text-wrap: pretty; }
+  #route, #open-block, .stay, .group, .day { scroll-margin-top: 24px; }
+}
+@media (min-width: 1280px) {
+  .app.has-day {
+    grid-template-columns: 220px minmax(0, 720px) 280px;
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fade { animation: rise .2s cubic-bezier(.16, 1, .3, 1); }
+  .bar { animation: grow .55s cubic-bezier(.16, 1, .3, 1); }
+  .chip, .stop, .stay, .btn, .glance-btn, .rail a, .dock a, .open-item, .stay-chip {
+    transition: background .2s cubic-bezier(.16, 1, .3, 1), color .2s cubic-bezier(.16, 1, .3, 1), transform .2s cubic-bezier(.16, 1, .3, 1);
+  }
+}
+@keyframes rise { from { opacity: 0; } to { opacity: 1; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media print {
+  .is-off, .view, .day, .day-note-inline, .how, .cut { display: block !important; }
+  .rail, .dock, .topbar, .context, .skip, .glance-btn, .pager, .print-hide, .daystrip { display: none !important; }
+  .stay-chip { display: inline-flex !important; }
+  .print-only { display: block; margin: 0 0 12px; }
+  body { padding: 0; background: #fff; color: #000; }
+  main { padding: 0; }
+  .day { break-before: page; }
+  a { text-decoration: none; }
+  .btn, .chip[aria-current="page"] { background: transparent; color: #000; }
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#content">跳到内容</a>
+<p class="print-only">山海之间，2026.09.30 到 10.07，桐乡往返福建</p>
+<div class="app" id="app">
+  <aside class="rail" aria-label="目录">
+    <a class="rail-brand" href="#overview">山海之间</a>
+    <a href="#overview" data-nav="overview">总览</a>
+    <div id="rail-days"></div>
+    <div class="rail-gap"></div>
+    <a href="#stay" data-nav="stay">住宿</a>
+    <a href="#budget" data-nav="budget">预算</a>
+    <a href="#tips" data-nav="tips">清单</a>
+  </aside>
+  <div class="stage">
+    <header class="topbar">
+      <div class="brandrow"><a href="#overview">山海之间</a></div>
+      <nav class="daystrip" id="daystrip" aria-label="八天"></nav>
+    </header>
+    <main id="content" tabindex="-1">
+      <section class="view" id="overview">
+        <div class="hero">
+          <img class="hero-photo" src="img/hero.jpg" alt="平潭一带的礁石海岸和空着的公路" width="1800" height="1012">
+          <div class="hero-copy">
+            <p class="kicker"><span id="depart-line">还有几天出发</span> · 八天七晚，两个人</p>
+            <h1>山海之间</h1>
+            <p class="love">想和你一起，从江南的秋天，一路开进南国的海风里。</p>
+            <p class="cta-row"><a class="btn" id="cta" href="#tips">先看还没做的事</a></p>
+          </div>
+        </div>
+        <section class="block" id="route">
+          <h2 class="sec">路线</h2>
+          <p class="lead">沿海画一个温柔的圈，全程驾驶测算约 33.6 小时。桐乡往返，小米 SU7 Pro。</p>
+          <div class="stops" id="stops"></div>
+        </section>
+        <section class="block" id="open-block">
+          <h2 class="sec">还没做的事</h2>
+          <div id="open-list"></div>
+        </section>
+        <section class="block">
+          <h2 class="sec">预算</h2>
+          <p class="lead">两位成人、一间房的测算口径，真实花费以订单和账单为准。</p>
+          <a class="total-link" href="#budget">
+            <span class="total-num">¥8,045.4</span>
+            <span class="total-sub">人均约 ¥4,022.7</span>
+          </a>
+        </section>
+        <footer class="fin">
+          <p class="quote">山海有约，一路有你。</p>
+          <p class="fin-sub">2026.09.30 到 10.07，桐乡往返福建</p>
+        </footer>
+      </section>
 
-<nav id="nav"><div class="bar">
-  <span class="brand">山海之间</span>
-  <span class="dv"></span>
-  <a href="#route" data-spy="route">路线</a>
-  <a href="#d1" data-spy="d1">D1</a><a href="#d2" data-spy="d2">D2</a>
-  <a href="#d3" data-spy="d3">D3</a><a href="#d4" data-spy="d4">D4</a>
-  <a href="#d5" data-spy="d5">D5</a><a href="#d6" data-spy="d6">D6</a>
-  <a href="#d7" data-spy="d7">D7</a><a href="#d8" data-spy="d8">D8</a>
-  <span class="dv"></span>
-  <a href="#stay" data-spy="stay">住宿</a>
-  <a href="#budget" data-spy="budget">预算</a>
-  <a href="#tips" data-spy="tips">提醒</a>
-</div></nav>
+      <section class="view is-off" id="dayview">
+        <div class="day-tools print-hide">
+          <button type="button" class="glance-btn" id="glance" aria-pressed="false">只看做什么</button>
+        </div>
+        <div id="dayroot"></div>
+      </section>
 
-<header id="hero"><div class="wrap"><div class="in">
-  <p class="kicker">2026 国庆 · 八天七晚 · 两个人</p>
-  <h1>山海之间<br>福建自驾路书</h1>
-  <p class="date">2026.09.30 — 10.07 · 桐乡往返 · 小米 SU7 Pro</p>
-  <div id="cd">
-    <span class="c"><span class="v" id="cd-d">–</span><span class="u">天</span></span>
-    <span class="c"><span class="v" id="cd-h">–</span><span class="u">小时</span></span>
-    <span class="c"><span class="v" id="cd-m">–</span><span class="u">分</span></span>
-    <span class="c"><span class="v" id="cd-s">–</span><span class="u">秒</span></span>
-    <span class="cap" id="cd-cap">距 9 月 30 日 13:30 出发</span>
+      <section class="view is-off" id="stay">
+        <h1>住宿</h1>
+        <p class="lead">七晚不加房，厦门两晚同一家不换。金额为预算示例，实付以订单为准。</p>
+        <div id="stay-list"></div>
+      </section>
+
+      <section class="view is-off" id="budget">
+        <h1>预算</h1>
+        <p class="lead">两位成人、一间房的测算口径，真实花费以订单和账单为准。</p>
+        <div class="budget-top">
+          <span class="total-num">¥8,045.4</span>
+          <span class="total-sub">人均约 ¥4,022.7</span>
+        </div>
+        <div id="budget-list"></div>
+        <p class="foot-note">核价优先级：7 晚酒店 → 船票本人有效订单 → 68海里 / 鼓浪屿景点票 → 停车与高速口径。</p>
+      </section>
+
+      <section class="view is-off" id="tips">
+        <h1>出发之前</h1>
+        <p class="lead">先搞定票、酒店、车，其他都是加分项。核实截至 2026.09.23。</p>
+        <div id="task-groups"></div>
+        <h2 class="sec rules-title">做减法的原则</h2>
+        <div id="rules"></div>
+        <p class="foot-note">勾选只记在这台浏览器里。清除网站数据后会丢掉。</p>
+      </section>
+    </main>
+    <nav class="dock" aria-label="主要">
+      <a href="#overview" data-nav="overview">总览</a>
+      <a href="#d1" data-nav="day" id="dock-trip">行程</a>
+      <a href="#stay" data-nav="stay">住宿</a>
+      <a href="#budget" data-nav="budget">预算</a>
+      <a href="#tips" data-nav="tips">清单</a>
+    </nav>
   </div>
-  <p class="love">想和你一起，从江南的秋天，一路开进南国的海风里。</p>
-  <p class="scroll-hint">向下滚动 · 看完整路书</p>
-</div></div></header>
-
-<section id="route" class="sec"><div class="wrap">
-  <div class="sh rv"><p class="k">ROUTE</p><h2>路线</h2>
-  <p>沿海画一个温柔的圈，全程驾驶测算约 33.6 小时。</p></div>
-  <div class="stops rv">
-    <div class="stop end"><div class="t"><span class="city">桐乡</span><span class="dt">09.30 · 13:30 出发</span></div><div class="dr">↓ 约 9 h · 温州方向晚餐＋补电</div></div>
-    <div class="stop"><div class="t"><span class="city">福州</span><span class="dt">09.30 深夜 · 住晋安区</span></div><div class="dr">↓ 约 2 h · 三坊七巷 · 烟台山</div></div>
-    <div class="stop"><div class="t"><span class="city">福清 → 平潭</span><span class="dt">10.01–10.03 · 南线 + 北线</span></div><div class="dr">↓ 南线约 2 h · 北线离岛约 3.5 h</div></div>
-    <div class="stop"><div class="t"><span class="city">涵江</span><span class="dt">10.03 晚 · 近高速过夜</span></div><div class="dr">↓ 约 3.2 h</div></div>
-    <div class="stop"><div class="t"><span class="city">厦门</span><span class="dt">10.04–10.06 · 连住两晚 · 鼓浪屿</span></div><div class="dr">↓ 约 2.8 h</div></div>
-    <div class="stop"><div class="t"><span class="city">晋江</span><span class="dt">10.06 晚 · 返程前夜</span></div><div class="dr">↓ 约 10.5 h（仅驾驶测算）</div></div>
-    <div class="stop end"><div class="t"><span class="city">桐乡</span><span class="dt">10.07 · 回家</span></div></div>
-  </div>
-</div></section>
-
-<section id="days" class="sec"><div class="wrap">
-  <div class="sh rv"><p class="k">DAY BY DAY</p><h2>八天路书</h2>
-  <p>一天一屏：主线时间轴在上，备选与删减收进折叠区。</p></div>
-  <div id="daylist"></div>
-</div></section>
-
-<section id="stay" class="sec"><div class="wrap">
-  <div class="sh rv"><p class="k">STAY</p><h2>住宿 · 七晚</h2>
-  <p>七晚不加房，厦门两晚同一家不换。金额为预算示例，实付以订单为准。</p></div>
-  <div class="rows rv">
-    <div class="row"><span class="rd">09.30</span><div class="rb"><div class="rn">福州 · 艾思顿S酒店（东二环泰禾广场店）</div><div class="rs">已选定，订单待核 · 过渡夜仅休息 · 长乐北路立洲大厦 3A，车库入口与跨夜保房需向前台确认</div></div><span class="rp">¥300<small>旧占位</small></span></div>
-    <div class="row"><span class="rd">10.01</span><div class="rb"><div class="rn">福清 · 宏路 / 清昌大道西段</div><div class="rs">未选定 · 经济型过渡夜，次日进平潭 · 核免费停车与安静房型</div></div><span class="rp">¥280</span></div>
-    <div class="row"><span class="rd">10.02</span><div class="rb"><div class="rn">平潭 · 县城万宝路 / 翠园路一带</div><div class="rs">未选定 · 平潭唯一住宿夜 · 国庆价差大，核房型、退订、是否临街吵</div></div><span class="rp">¥650</span></div>
-    <div class="row"><span class="rd">10.03</span><div class="rb"><div class="rn">莆田涵江 · 次日 G15 入口便利区</div><div class="rs">未选定 · 过一夜不做深度游 · 晚饭时补电，晚到提前电话保房</div></div><span class="rp">¥280</span></div>
-    <div class="row"><span class="rd">10.04</span><div class="rb"><div class="rn">厦门 · 吕厝 / 江头 / SM 周边</div><div class="rs">未选定 · 连住第 1 夜 · 车留酒店，核心区短打车</div></div><span class="rp">¥500</span></div>
-    <div class="row"><span class="rd">10.05</span><div class="rb"><div class="rn">厦门 · 同一酒店，不换房</div><div class="rs">未选定 · 连住第 2 夜 · 提前说连续住同房型，鼓浪屿当天轻装出行</div></div><span class="rp">¥500</span></div>
-    <div class="row"><span class="rd">10.06</span><div class="rb"><div class="rn">晋江 · G15 便利区（池店优先）</div><div class="rs">未选定 · 返程前早睡夜 · 前晚完成返程首段电量</div></div><span class="rp">¥350</span></div>
-  </div>
-</div></section>
-
-<section id="budget" class="sec"><div class="wrap">
-  <div class="sh rv"><p class="k">BUDGET</p><h2>预算</h2>
-  <p>两位成人、一间房的测算口径，真实花费以订单和账单为准。</p></div>
-  <div class="rows rv">
-    <div class="row"><div class="rb"><div class="rn">住宿 · 7 晚</div><div class="rs">300 / 280 / 650 / 280 / 500 / 500 / 350，均为预算假设</div></div><span class="rp">¥2,860</span></div>
-    <div class="row"><div class="rb"><div class="rn">餐饮 · 8 天</div><div class="rs">两人 × 8 天 × 每日 ¥120，正餐早餐小吃全含</div></div><span class="rp">¥1,920</span></div>
-    <div class="row"><div class="rb"><div class="rn">充电 · 全程</div><div class="rs">2,800 km × 20 kWh/100km × ¥1.8，保守口径</div></div><span class="rp">¥1,008</span></div>
-    <div class="row"><div class="rb"><div class="rn">短途打车 · 厦门核心区</div><div class="rs">两人共用总额</div></div><span class="rp">¥400</span></div>
-    <div class="row"><div class="rb"><div class="rn">停车 · 8 天预留</div><div class="rs">酒店免费停车可下调</div></div><span class="rp">¥320</span></div>
-    <div class="row"><div class="rb"><div class="rn">门票船票</div><div class="rs">68海里 76 ＋ 船票 70 ＋ 日光岩 100 ＋ 菽庄花园 60，含待核旧价</div></div><span class="rp">¥306</span></div>
-    <div class="row"><div class="rb"><div class="rn">高速通行 · 预留</div><div class="rs">免费条件未核，先留余量</div></div><span class="rp">¥300</span></div>
-    <div class="row"><div class="rb"><div class="rn">其他 · 饮水零碎</div><div class="rs">不含大件购物与临时加住</div></div><span class="rp">¥200</span></div>
-    <div class="row sub"><div class="rb"><div class="rn">备用金 10%</div><div class="rs">用于拥堵、改期等波动</div></div><span class="rp">¥731.4</span></div>
-    <div class="row total"><div class="rb"><div class="rn">总预算</div><div class="rs">人均约 ¥4,022.7</div></div><span class="rp">¥8,045.4</span></div>
-  </div>
-  <p class="note-line rv">核价优先级：7 晚酒店 → 船票本人有效订单 → 68海里 / 鼓浪屿景点票 → 停车与高速口径。</p>
-</div></section>
-
-<section id="tips" class="sec"><div class="wrap">
-  <div class="sh rv"><p class="k">BEFORE WE GO</p><h2>出发之前</h2>
-  <p>先搞定票、酒店、车，其他都是加分项。核实截至 2026.09.23。</p></div>
-  <p class="ghead rv">要核实的事</p>
-  <ul class="todo rv">
-    <li><span class="sq"></span><span>核对鼓浪屿本人有效船票：10/5、09:10、东渡→内厝澳、两位乘船人及付款状态，原表不是凭证</span><span class="wh">现在优先</span></li>
-    <li><span class="sq"></span><span>落实其余 6 晚酒店，并核首晚订单；厦门两晚同酒店同房型</span><span class="wh">现在优先</span></li>
-    <li><span class="sq"></span><span>艾思顿S酒店跨夜保房：告知可能凌晨到店，留存保房答复与车库入口定位</span><span class="wh">出发前</span></li>
-    <li><span class="sq"></span><span>确认船票放售与余票：官方 15 日含当日、09:00 放第 15 天</span><span class="wh">现在</span></li>
-    <li><span class="sq"></span><span>问清 7 晚停车权益：是否免费 / 保证车位、车库入口、限高、夜间出入，充电另问</span><span class="wh">下单前</span></li>
-    <li><span class="sq"></span><span>南普陀最新预约窗口：只从寺院正规平台操作</span><span class="wh">出发前</span></li>
-    <li><span class="sq"></span><span>核平潭国庆管制与停车：查平潭交警 / 景区当日通告</span><span class="wh">9/29 及 10/2–3 早晨</span></li>
-    <li><span class="sq"></span><span>核厦门核心区通行：不复制 2025 年单双号与接驳规则</span><span class="wh">9/29 及 10/4 入厦前</span></li>
-    <li><span class="sq"></span><span>轮胎、雨刷、胎压、ETC 检查；证件、充电宝、雨具、防晒装包</span><span class="wh">9/29</span></li>
-    <li><span class="sq"></span><span>看平潭 / 厦门天气预警与风浪：只用临近预报做决策</span><span class="wh">9/29 起逐日</span></li>
-    <li><span class="sq"></span><span>出发前完成补电：主站与备用站都确认，车机终点设为酒店完整门店</span><span class="wh">9/30 出门前</span></li>
-    <li><span class="sq"></span><span>核轮渡运行与退改消息：9/1 起新退改口径，订单规则优先</span><span class="wh">10/4 晚、10/5 早</span></li>
-    <li><span class="sq"></span><span>准备返程电量与早餐：次晨出发与首个可用站之间留合理余量</span><span class="wh">10/6 晚</span></li>
-  </ul>
-  <p class="ghead rv">做减法的原则</p>
-  <ul class="rules rv">
-    <li><b>所有新增点都可删，休息和赶船缓冲不可删。</b>这是整本路书唯一不许商量的一条。</li>
-    <li>删景点不删正餐：午饭、坐休、补水永远排在打卡前面，不用零食代替休息。</li>
-    <li>疲劳时不开车，不把辅助驾驶当休息；困了就进正规停车场或服务区，必要时临时加住。</li>
-    <li>到家时间不写死：10.5 h 只是驾驶测算，堵车、排队、吃饭都另算。</li>
-    <li>替换不叠加：上下杭之于烟台山、植物园之于南普陀、集美之于黄厝，一次只选一种。</li>
-  </ul>
-</div></section>
-
-<footer id="fin"><div class="wrap">
-  <p class="q rv">山海有约，一路有你<em>。</em></p>
-  <p class="s rv">2026.09.30 – 10.07 · 桐乡 ↔ 福建 · 写给你的路书</p>
-</div></footer>
-
+  <aside class="context" id="context" aria-label="这一天的住宿">
+    <p class="lab">这一晚</p>
+    <div id="context-stay"></div>
+    <p class="lab context-lab">执行提醒</p>
+    <p id="context-note" class="context-copy"></p>
+  </aside>
+</div>
+<noscript><p class="noscript-note">这页要靠浏览器脚本切换八天和记住勾选。请允许脚本后再打开。</p></noscript>
 <script>
-/* 数据：8 天 · 43 段路书（源自 Excel《每日详细路书》） */
-const DAYS=[
-{id:'d1',no:'01',date:'9月30日',wk:'周三',city:'桐乡 → 福州晋安区',
+const DAYS = [
+{id:'d1', no:'01', date:'9月30日', wk:'周三', city:'桐乡 → 福州晋安区',
  meta:'驾驶约 9 h · 预计深夜到 · 住 艾思顿S酒店（已选定，订单未核）',
  plan:'13:30 前后出发，温州方向晚餐＋补电，直达酒店入住。当天只赶路、休息，不加夜游；困了就近正规停车休息，不为零点出站硬撑。',
  note:'导航酒店全名 / 立洲大厦，不只搜泰禾广场；到达时间用实时导航重算。',
  segs:[
-  {tm:'出发前',act:'车辆、行李、订单检查',hint:'带证件、充电线、薄外套；联系酒店核 9/30 入住、10/1 退房与凌晨保房，索取车库入口定位；出发前补电，车机终点改为酒店完整门店。',cut:'疲劳或出发推迟：改住更近的正规酒店，10/1 少玩一个片区。'},
-  {tm:'13:30–18:00',act:'第一段驾驶，途中自主休息',hint:'每到休息区先判断人是否累，再判断电是否够；不把车机辅助驾驶当休息。选导航顺路、有备用桩的服务区。',cut:'拥堵时不为了所谓最优电价绕远。'},
-  {tm:'18:00–19:00',act:'温州 / 乐清方向服务区：晚饭、补电合并',hint:'先看排队再停车；等待明显较久且电量允许，换已确认可用的下一站；这里不是固定必停站。',cut:'充电完成也要休息够，不按充电速度催驾驶员。'},
-  {tm:'19:00 后',act:'继续南下，需要时加一次短充',hint:'宁德仅作动态备用补电区域；市区入口和停车预留 30–60 分钟；宁可提前补电，不把电量压到只够一处站。',cut:'疲劳时先在服务区休息或就近住宿，并联系酒店处理保房/退改；不因选定酒店而硬撑。'},
-  {tm:'深夜 · 按实况',act:'酒店办理入住、睡觉，不安排夜游',hint:'可能过零点到店，出发前让前台明确保房；含早、房型和订单付款仍待核；按前台发的车库入口入场，免费、空位、限高均需确认。',cut:'到得早也只在附近简单吃饭/休息；晚到不赶景点。酒店是否有充电桩尚未确认。'}
+  {tm:'出发前', act:'车辆、行李、订单检查', hint:'带证件、充电线、薄外套；联系酒店核 9/30 入住、10/1 退房与凌晨保房，索取车库入口定位；出发前补电，车机终点改为酒店完整门店。', cut:'疲劳或出发推迟：改住更近的正规酒店，10/1 少玩一个片区。'},
+  {tm:'13:30-18:00', act:'第一段驾驶，途中自主休息', hint:'每到休息区先判断人是否累，再判断电是否够；不把车机辅助驾驶当休息。选导航顺路、有备用桩的服务区。', cut:'拥堵时不为了所谓最优电价绕远。'},
+  {tm:'18:00-19:00', act:'温州 / 乐清方向服务区：晚饭、补电合并', hint:'先看排队再停车；等待明显较久且电量允许，换已确认可用的下一站；这里不是固定必停站。', cut:'充电完成也要休息够，不按充电速度催驾驶员。'},
+  {tm:'19:00 后', act:'继续南下，需要时加一次短充', hint:'宁德仅作动态备用补电区域；市区入口和停车预留 30-60 分钟；宁可提前补电，不把电量压到只够一处站。', cut:'疲劳时先在服务区休息或就近住宿，并联系酒店处理保房/退改；不因选定酒店而硬撑。'},
+  {tm:'深夜 · 按实况', act:'酒店办理入住、睡觉，不安排夜游', hint:'可能过零点到店，出发前让前台明确保房；含早、房型和订单付款仍待核；按前台发的车库入口入场，免费、空位、限高均需确认。', cut:'到得早也只在附近简单吃饭/休息；晚到不赶景点。酒店是否有充电桩尚未确认。'}
  ]},
-{id:'d2',no:'02',date:'10月1日',wk:'周四',city:'福州 → 福清',
+{id:'d2', no:'02', date:'10月1日', wk:'周四', city:'福州 → 福清',
  meta:'驾驶约 2 h · 10:00 左右出发，18:00 收尾 · 住 福清宏路 / 清昌大道西段',
  plan:'睡足、早餐退房；三坊七巷 → 午餐休息 → 烟台山 → 福清。默认退房带车和行李，不回酒店折返；上下杭只替换，不再叠加。',
- note:'每片区停一次车再步行；09:30–10:30 按睡眠顺延。',
+ note:'每片区停一次车再步行；09:30-10:30 按睡眠顺延。',
  segs:[
-  {tm:'09:30–10:30',act:'睡足、早餐、退房后出发',hint:'昨晚晚到则顺延，不强行早起；早餐是否包含按订单核；停车满就换外围备选。',cut:'11:30 后才出发就缩短三坊七巷，或与烟台山二选一；不压午饭和坐休。'},
-  {tm:'10:30–13:00',act:'三坊七巷 / 南后街：坊巷慢逛',hint:'南后街看整体街景，挑一两条坊巷走；爱心榕只顺路拍，热门机位不久排；停一次车后步行，不逐巷挪车。',cut:'不要求买全套故居联票；小院开放和收费现场看。'},
-  {tm:'13:00–14:15',act:'午餐、坐下休息',hint:'鱼丸、肉燕、捞化挑两样，不边走边凑午餐；饭后取车转场烟台山，按停车场入口导航。',cut:'免费交通仅作方便时的备选，不强制换长距离公共交通。'},
-  {tm:'14:30–17:30',act:'烟台山：坡道街巷、老建筑、江景',hint:'先走街巷，再找一处咖啡座；江边公开步道只选一段；停正规停车场，不把导航设在拥挤小街。',cut:'上下杭与烟台山二选一，不在当天凑三个历史街区。'},
-  {tm:'18:00–20:00',act:'取车去福清，晚饭入住',hint:'以第二天去平潭方便为准；有精力就顺便补电，不另找夜景；酒店停车权益先问。',cut:'离城堵就顺延到店，不再加福清景点。'}
+  {tm:'09:30-10:30', act:'睡足、早餐、退房后出发', hint:'昨晚晚到则顺延，不强行早起；早餐是否包含按订单核；停车满就换外围备选。', cut:'11:30 后才出发就缩短三坊七巷，或与烟台山二选一；不压午饭和坐休。'},
+  {tm:'10:30-13:00', act:'三坊七巷 / 南后街：坊巷慢逛', hint:'南后街看整体街景，挑一两条坊巷走；爱心榕只顺路拍，热门机位不久排；停一次车后步行，不逐巷挪车。', cut:'不要求买全套故居联票；小院开放和收费现场看。'},
+  {tm:'13:00-14:15', act:'午餐、坐下休息', hint:'鱼丸、肉燕、捞化挑两样，不边走边凑午餐；饭后取车转场烟台山，按停车场入口导航。', cut:'免费交通仅作方便时的备选，不强制换长距离公共交通。'},
+  {tm:'14:30-17:30', act:'烟台山：坡道街巷、老建筑、江景', hint:'先走街巷，再找一处咖啡座；江边公开步道只选一段；停正规停车场，不把导航设在拥挤小街。', cut:'上下杭与烟台山二选一，不在当天凑三个历史街区。'},
+  {tm:'18:00-20:00', act:'取车去福清，晚饭入住', hint:'以第二天去平潭方便为准；有精力就顺便补电，不另找夜景；酒店停车权益先问。', cut:'离城堵就顺延到店，不再加福清景点。'}
  ]},
-{id:'d3',no:'03',date:'10月2日',wk:'周五',city:'福清 → 平潭南线',
+{id:'d3', no:'03', date:'10月2日', wk:'周五', city:'福清 → 平潭南线',
  meta:'驾驶约 2 h · 09:00 出发，17:00 收尾 · 住 平潭县城万宝路 / 翠园路一带',
  plan:'68海里景区 → 午餐 → 坛南湾玩沙、海边坐坐，住平潭县城。猴研岛包含在 68 海里玩法内；龙王头看体力短逛或取消。',
  note:'南线正规停车场；天差就缩短海边，早点入住。',
  segs:[
-  {tm:'08:00–10:30',act:'早餐、出发、入岛',hint:'看进岛道路、南线景区入口和停车提示；导航景区正式停车场，勿跟路边揽客临停。',cut:'进岛延误 1h 以上，减少 68 海里停留，保住海边休息。'},
-  {tm:'10:30–12:15',act:'68海里景区：礁石海岸、海景纪念点',hint:'沿开放步道走一小圈，拍人和海的远景；大风不去暴露岩石边缘；票价沿用原表 38 作估算。',cut:'猴研岛不再作为独立第二个景区重复安排。'},
-  {tm:'12:15–14:00',act:'午餐、转场、休息',hint:'海鲜先问计价单位与加工费；不追离路线很远的网红店；餐饮停车与下一站距离一起看。',cut:'有强风或降雨，就延长室内休息、缩短沙滩。'},
-  {tm:'14:00–16:30',act:'坛南湾：玩沙、踏浪边缘、海边坐坐',hint:'选一片沙滩待着，不连续追三四个海湾；水上项目单独问价；只进明确开放区域。',cut:'浪大/雷雨不下水；玩海不是必须下海游泳。'},
-  {tm:'17:00–18:30',act:'入住、晚饭（龙王头可选）',hint:'先把行李放好；龙王头只作 30–45 分钟晚间短走，累了就直接吃饭；酒店停车后不频繁挪车。',cut:'已在坛南湾玩够就删龙王头；不为蓝眼泪熬夜。'}
+  {tm:'08:00-10:30', act:'早餐、出发、入岛', hint:'看进岛道路、南线景区入口和停车提示；导航景区正式停车场，勿跟路边揽客临停。', cut:'进岛延误 1h 以上，减少 68 海里停留，保住海边休息。'},
+  {tm:'10:30-12:15', act:'68海里景区：礁石海岸、海景纪念点', hint:'沿开放步道走一小圈，拍人和海的远景；大风不去暴露岩石边缘；票价沿用原表 38 作估算。', cut:'猴研岛不再作为独立第二个景区重复安排。'},
+  {tm:'12:15-14:00', act:'午餐、转场、休息', hint:'海鲜先问计价单位与加工费；不追离路线很远的网红店；餐饮停车与下一站距离一起看。', cut:'有强风或降雨，就延长室内休息、缩短沙滩。'},
+  {tm:'14:00-16:30', act:'坛南湾：玩沙、踏浪边缘、海边坐坐', hint:'选一片沙滩待着，不连续追三四个海湾；水上项目单独问价；只进明确开放区域。', cut:'浪大/雷雨不下水；玩海不是必须下海游泳。'},
+  {tm:'17:00-18:30', act:'入住、晚饭（龙王头可选）', hint:'先把行李放好；龙王头只作 30-45 分钟晚间短走，累了就直接吃饭；酒店停车后不频繁挪车。', cut:'已在坛南湾玩够就删龙王头；不为蓝眼泪熬夜。'}
  ]},
-{id:'d4',no:'04',date:'10月3日',wk:'周六',city:'平潭北线 → 涵江',
+{id:'d4', no:'04', date:'10月3日', wk:'周六', city:'平潭北线 → 涵江',
  meta:'驾驶约 3.5 h · 08:00 出发，15:30 收尾、16:00 争取离岛 · 住 莆田涵江近高速',
  plan:'北港村 → 长江澳 → 北部生态廊道精选观景段，下午离岛。镜沙/和平村二选一且替换北港；不再等长江澳日落。',
  note:'北线单向推进；保留离岛拥堵、补电余量。',
  segs:[
-  {tm:'08:00–09:15',act:'北港村：石头厝、海边小巷、早餐',hint:'逛公开街巷，拍石屋与海；不进居民院落；咖啡只选一家；以村外围正规停车为准。',cut:'想去镜沙/和平村，删减北港，不四处全跑。'},
-  {tm:'09:15–10:30',act:'北港 → 长江澳：风车海滩短停',hint:'只从允许停车的位置看海与风车；不为一个机位把车停在转弯处；找不到车位就跳过。',cut:'本日不等日落，避免夜间离岛再赶涵江。'},
-  {tm:'10:45–12:30',act:'北部生态廊道：精选 1–2 个观景点',hint:'看海岸层次、风车和山坡；按开放路段走，不追网上所有弯道；服从单向/接驳安排。',cut:'排队多就只看一个观景段，不耗完整半天。'},
-  {tm:'12:30–13:45',act:'午餐与坐休',hint:'吃热饭、补水；检查出岛导航与下个充电备选；优先有明确车位的店。',cut:'不能用零食代替休息来挤更多景点。'},
-  {tm:'13:45–15:30',act:'最后一段看景，按路况提前结束',hint:'只留一个补充点；15:30 开始返程动作，16:00 争取驶向出岛方向；不回头找遗漏机位。',cut:'导航显示出岛明显拥堵，立即取消最后一个点。'},
-  {tm:'16:00 后',act:'离岛、晚饭、入住涵江',hint:'19:00–20:30 到店只是安排目标，充电/拥堵会延后；选近次日高速方向的酒店。',cut:'兴化府街区不默认加；湄洲岛不挤进过夜间隙。'}
+  {tm:'08:00-09:15', act:'北港村：石头厝、海边小巷、早餐', hint:'逛公开街巷，拍石屋与海；不进居民院落；咖啡只选一家；以村外围正规停车为准。', cut:'想去镜沙/和平村，删减北港，不四处全跑。'},
+  {tm:'09:15-10:30', act:'北港 → 长江澳：风车海滩短停', hint:'只从允许停车的位置看海与风车；不为一个机位把车停在转弯处；找不到车位就跳过。', cut:'本日不等日落，避免夜间离岛再赶涵江。'},
+  {tm:'10:45-12:30', act:'北部生态廊道：精选 1-2 个观景点', hint:'看海岸层次、风车和山坡；按开放路段走，不追网上所有弯道；服从单向/接驳安排。', cut:'排队多就只看一个观景段，不耗完整半天。'},
+  {tm:'12:30-13:45', act:'午餐与坐休', hint:'吃热饭、补水；检查出岛导航与下个充电备选；优先有明确车位的店。', cut:'不能用零食代替休息来挤更多景点。'},
+  {tm:'13:45-15:30', act:'最后一段看景，按路况提前结束', hint:'只留一个补充点；15:30 开始返程动作，16:00 争取驶向出岛方向；不回头找遗漏机位。', cut:'导航显示出岛明显拥堵，立即取消最后一个点。'},
+  {tm:'16:00 后', act:'离岛、晚饭、入住涵江', hint:'19:00-20:30 到店只是安排目标，充电/拥堵会延后；选近次日高速方向的酒店。', cut:'兴化府街区不默认加；湄洲岛不挤进过夜间隙。'}
  ]},
-{id:'d5',no:'05',date:'10月4日',wk:'周日',city:'涵江 → 厦门',
+{id:'d5', no:'05', date:'10月4日', wk:'周日', city:'涵江 → 厦门',
  meta:'驾驶约 3.2 h · 08:00 出发，20:30 结束逛街 · 住 吕厝 / 江头 / SM（连住第 1 晚）',
  plan:'午前后到酒店；沙坡尾/大学路 → 演武大桥短走 → 八市 → 中山路。到店晚就删艺术西区或压缩中山路。',
  note:'岛内先停车；核心区短打车＋步行，不硬找免费位。',
  segs:[
-  {tm:'08:00–12:00',act:'出发、到店寄存、午餐',hint:'预计午前后抵达；未到入住时间就先寄存，不假定能提前拿房；车尽量留在酒店。',cut:'到厦门晚于 13:00：午休保留，下午删一个支点。'},
-  {tm:'12:00–13:45',act:'午饭、入住/休息',hint:'第一个下午不要拖着箱子逛；步行鞋、防晒、水带齐即可；轻装去核心区。',cut:'不为打卡餐厅跨城吃午饭。'},
-  {tm:'14:00–15:45',act:'沙坡尾避风坞 / 大学路：港湾街景、拍照',hint:'先沿水边看避风坞与建筑，再逛大学路；艺术西区只选小范围；遵当天交通组织选上下车点。',cut:'艺术西区逛店和长时间咖啡二选一。'},
-  {tm:'15:45–16:30',act:'演武大桥观景步道短走',hint:'拍双子塔与海、向鼓浪屿方向远望；只走开放步行区域；从沙坡尾步行转场，不再取车。',cut:'不等日落；风雨关闭或人太多就取消。'},
-  {tm:'16:30–17:00',act:'跨片区转场去八市',hint:'预留叫车/步行到可上车点的时间；不一路步行消耗腿力；按当天管控到外围上下车。',cut:'遇明显堵车，直接往八市外围，跳过零散拍照。'},
-  {tm:'17:00–18:15',act:'第八市场：市井街巷、小吃晚餐',hint:'一份主食＋两三样分食；喜欢烟火气就先逛，别等深夜才来；小巷不驾车穿行。',cut:'商户营业各异；不保证傍晚所有摊位仍营业。'},
-  {tm:'18:30–20:00',act:'中山路步行街：骑楼夜景、散步',hint:'夜景和小店各看一点，不每家网红店都排；大件伴手礼可留最后；回程叫车到可停点。',cut:'累了 19:00 就回酒店，明天赶船比夜逛更重要。'},
-  {tm:'20:00–21:00',act:'返店、核对船票、准备次日',hint:'看本人已支付有效订单、日期、码头、乘船人；证件装入随身包；车留酒店，不开到鼓浪屿。',cut:'原表 09:10 不是出票证明，没票就先解决船票。'}
+  {tm:'08:00-12:00', act:'出发、到店寄存、午餐', hint:'预计午前后抵达；未到入住时间就先寄存，不假定能提前拿房；车尽量留在酒店。', cut:'到厦门晚于 13:00：午休保留，下午删一个支点。'},
+  {tm:'12:00-13:45', act:'午饭、入住/休息', hint:'第一个下午不要拖着箱子逛；步行鞋、防晒、水带齐即可；轻装去核心区。', cut:'不为打卡餐厅跨城吃午饭。'},
+  {tm:'14:00-15:45', act:'沙坡尾避风坞 / 大学路：港湾街景、拍照', hint:'先沿水边看避风坞与建筑，再逛大学路；艺术西区只选小范围；遵当天交通组织选上下车点。', cut:'艺术西区逛店和长时间咖啡二选一。'},
+  {tm:'15:45-16:30', act:'演武大桥观景步道短走', hint:'拍双子塔与海、向鼓浪屿方向远望；只走开放步行区域；从沙坡尾步行转场，不再取车。', cut:'不等日落；风雨关闭或人太多就取消。'},
+  {tm:'16:30-17:00', act:'跨片区转场去八市', hint:'预留叫车/步行到可上车点的时间；不一路步行消耗腿力；按当天管控到外围上下车。', cut:'遇明显堵车，直接往八市外围，跳过零散拍照。'},
+  {tm:'17:00-18:15', act:'第八市场：市井街巷、小吃晚餐', hint:'一份主食＋两三样分食；喜欢烟火气就先逛，别等深夜才来；小巷不驾车穿行。', cut:'商户营业各异；不保证傍晚所有摊位仍营业。'},
+  {tm:'18:30-20:00', act:'中山路步行街：骑楼夜景、散步', hint:'夜景和小店各看一点，不每家网红店都排；大件伴手礼可留最后；回程叫车到可停点。', cut:'累了 19:00 就回酒店，明天赶船比夜逛更重要。'},
+  {tm:'20:00-21:00', act:'返店、核对船票、准备次日', hint:'看本人已支付有效订单、日期、码头、乘船人；证件装入随身包；车留酒店，不开到鼓浪屿。', cut:'原表 09:10 不是出票证明，没票就先解决船票。'}
  ]},
-{id:'d6',no:'06',date:'10月5日',wk:'周一',city:'厦门 · 鼓浪屿',
- meta:'驾驶约 0.6 h · 07:20 左右离店，08:00–08:10 到码头 · 住 原厦门酒店（连住第 2 晚）',
+{id:'d6', no:'06', date:'10月5日', wk:'周一', city:'厦门 · 鼓浪屿',
+ meta:'驾驶约 0.6 h · 07:20 左右离店，08:00-08:10 到码头 · 住 原厦门酒店（连住第 2 晚）',
  plan:'拟 09:10 东渡 → 内厝澳；日光岩 → 菽庄花园 → 龙头路 → 三丘田返程。排队久就删日光岩登顶或最美转角；午餐与休息不能删。',
  note:'原表班次不是已购凭证；去程定位「厦门邮轮中心厦鼓码头（东渡）」，不是中山路旁的轮渡码头；返程先看实际靠泊码头。',
  segs:[
-  {tm:'06:50–08:10',act:'早餐、出门、提前到东渡码头',hint:'07:20 左右出门；按酒店实测导航再提前；定位东渡邮轮中心，不是中山路旁厦门轮渡码头。',cut:'不要按日常 20 分钟车程计算国庆赶船。'},
-  {tm:'08:10–09:30',act:'安检、候船、按订单登船，东渡 → 内厝澳',hint:'进站、排队、洗手间放在预留时间内；航程约 20 分钟；两人普通票预算 ¥70，以实际订单船型为准。',cut:'未买到原班次：整天顺延或改班，别硬套时间。'},
-  {tm:'09:30–12:30',act:'内厝澳 → 日光岩 → 午餐',hint:'边走边看，不连续冲坡；日光岩排队久直接删登顶；岛上以步行为主。',cut:'腿累就保留街景和菽庄，不追完所有付费点。'},
-  {tm:'12:45–15:30',act:'菽庄花园 → 港仔后 → 龙头路',hint:'把庭园和海景当核心；港仔后坐一会，再去龙头路吃点东西；坡道和人流耗体力，留好余量。',cut:'下雨可延长开放的室内展区，仍留步行转场时间。'},
-  {tm:'15:30–18:30',act:'建筑街巷 → 三丘田 → 排队返程',hint:'最美转角只顺路拍；16:30 左右向码头收尾，不等最后一班；返程码头可能因日夜航而变，落地后再叫车。',cut:'17:40 前后先核当班终点；别默认一律回东渡。'},
-  {tm:'返厦后',act:'晚饭、回店休息',hint:'不再排另一个大景点；把次日行李整理好；跟实际下船码头走，不按早上起点叫车。',cut:'天气或排队拖后，直接酒店周边吃饭。'}
+  {tm:'06:50-08:10', act:'早餐、出门、提前到东渡码头', hint:'07:20 左右出门；按酒店实测导航再提前；定位东渡邮轮中心，不是中山路旁厦门轮渡码头。', cut:'不要按日常 20 分钟车程计算国庆赶船。'},
+  {tm:'08:10-09:30', act:'安检、候船、按订单登船，东渡 → 内厝澳', hint:'进站、排队、洗手间放在预留时间内；航程约 20 分钟；两人普通票预算 ¥70，以实际订单船型为准。', cut:'未买到原班次：整天顺延或改班，别硬套时间。'},
+  {tm:'09:30-12:30', act:'内厝澳 → 日光岩 → 午餐', hint:'边走边看，不连续冲坡；日光岩排队久直接删登顶；岛上以步行为主。', cut:'腿累就保留街景和菽庄，不追完所有付费点。'},
+  {tm:'12:45-15:30', act:'菽庄花园 → 港仔后 → 龙头路', hint:'把庭园和海景当核心；港仔后坐一会，再去龙头路吃点东西；坡道和人流耗体力，留好余量。', cut:'下雨可延长开放的室内展区，仍留步行转场时间。'},
+  {tm:'15:30-18:30', act:'建筑街巷 → 三丘田 → 排队返程', hint:'最美转角只顺路拍；16:30 左右向码头收尾，不等最后一班；返程码头可能因日夜航而变，落地后再叫车。', cut:'17:40 前后先核当班终点；别默认一律回东渡。'},
+  {tm:'返厦后', act:'晚饭、回店休息', hint:'不再排另一个大景点；把次日行李整理好；跟实际下船码头走，不按早上起点叫车。', cut:'天气或排队拖后，直接酒店周边吃饭。'}
  ]},
-{id:'d7',no:'07',date:'10月6日',wk:'周二',city:'厦门 → 晋江',
+{id:'d7', no:'07', date:'10月6日', wk:'周二', city:'厦门 → 晋江',
  meta:'驾驶约 2.8 h · 17:00 争取离厦，晚饭后补电 · 住 晋江 G15 便利区（池店优先）',
  plan:'默认南普陀 → 午休 → 黄厝海滩；16:00 左右返酒店取行李，17:00 北上。植物园替换上午、集美替换整个下午，两个替换不同时叠加。',
  note:'五店市仅到店早且不累才加；不赶泉州老城夜游。',
  segs:[
-  {tm:'08:30–10:15',act:'南普陀寺：寺院建筑、庭院慢走',hint:'按官方预约进入；只走寺院主区域，不把五老峰登山硬并入；车不一定能贴门口停。',cut:'植物园替换整个上午，默认不同时安排。'},
-  {tm:'10:15–11:00',act:'南华路 / 顶澳仔猫街二选一：小街短逛、咖啡坐休',hint:'只选一条街，不必专门找同款网红机位；以实际开放街巷为准。',cut:'厦大预约成功则用校园替换这段及部分上午，不免费加时。'},
-  {tm:'11:00–13:15',act:'午饭、午休、办理退房',hint:'先问延迟退房与寄存；未获同意按酒店时间退房，行李寄存；寄存后停车规则需酒店明确。',cut:'别为了卡退房而带箱子晒太阳。'},
-  {tm:'13:30–15:30',act:'黄厝海滩：海边坐坐、沙滩散步',hint:'黄厝和椰风寨选一个停留区；拍照选背光不强的位置，不保证晴天蓝海；看现场停车收费及空位。',cut:'集美学村＋十里长堤替换整个下午；不再返回海边补打卡。'},
-  {tm:'15:30–17:00',act:'取行李、离厦北上',hint:'先看高速出岛导航；17:00 争取开始往晋江，不再等日落；预估行李提取与车库出入耗时。',cut:'当日堵车多就更早收尾；放弃一处海滩比夜间赶路划算。'},
-  {tm:'18:30–21:00',act:'晋江入住、晚饭、补电',hint:'只有 19:00 前到店且驾驶员不累，才考虑五店市短逛；否则楼下吃饭睡觉；不临时换到泉州西街附近。',cut:'五店市不是必去；不和梧林、泉州老城一起凑。'}
+  {tm:'08:30-10:15', act:'南普陀寺：寺院建筑、庭院慢走', hint:'按官方预约进入；只走寺院主区域，不把五老峰登山硬并入；车不一定能贴门口停。', cut:'植物园替换整个上午，默认不同时安排。'},
+  {tm:'10:15-11:00', act:'南华路 / 顶澳仔猫街二选一：小街短逛、咖啡坐休', hint:'只选一条街，不必专门找同款网红机位；以实际开放街巷为准。', cut:'厦大预约成功则用校园替换这段及部分上午，不免费加时。'},
+  {tm:'11:00-13:15', act:'午饭、午休、办理退房', hint:'先问延迟退房与寄存；未获同意按酒店时间退房，行李寄存；寄存后停车规则需酒店明确。', cut:'别为了卡退房而带箱子晒太阳。'},
+  {tm:'13:30-15:30', act:'黄厝海滩：海边坐坐、沙滩散步', hint:'黄厝和椰风寨选一个停留区；拍照选背光不强的位置，不保证晴天蓝海；看现场停车收费及空位。', cut:'集美学村＋十里长堤替换整个下午；不再返回海边补打卡。'},
+  {tm:'15:30-17:00', act:'取行李、离厦北上', hint:'先看高速出岛导航；17:00 争取开始往晋江，不再等日落；预估行李提取与车库出入耗时。', cut:'当日堵车多就更早收尾；放弃一处海滩比夜间赶路划算。'},
+  {tm:'18:30-21:00', act:'晋江入住、晚饭、补电', hint:'只有 19:00 前到店且驾驶员不累，才考虑五店市短逛；否则楼下吃饭睡觉；不临时换到泉州西街附近。', cut:'五店市不是必去；不和梧林、泉州老城一起凑。'}
  ]},
-{id:'d8',no:'08',date:'10月7日',wk:'周三',city:'晋江 → 桐乡',
+{id:'d8', no:'08', date:'10月7日', wk:'周三', city:'晋江 → 桐乡',
  meta:'驾驶约 10.5 h · 早点出发，不承诺固定到家时刻 · 回家',
- plan:'06:30–07:00 出发，北上途中分段休息、吃饭、补电，返回桐乡。全天不安排景点；10.5h 仅驾驶测算，总耗时还要加休息和拥堵。',
+ plan:'06:30-07:00 出发，北上途中分段休息、吃饭、补电，返回桐乡。全天不安排景点；10.5h 仅驾驶测算，总耗时还要加休息和拥堵。',
  note:'前晚备好早餐与行李；按车机续航动态调整充电。',
  segs:[
-  {tm:'06:30–07:00',act:'离店、开始返程',hint:'前夜完成充电计划，早餐打包；早出发但以睡足为前提；核对出发 SOC、轮胎和剩余里程。',cut:'人未休息好就顺延，不用早起制造疲劳。'},
-  {tm:'全天',act:'分段驾驶、休息、充电',hint:'以车机实测能耗与导航为准，准备不止两处可选充电点；安排正餐和休息；到站余量按天气/排队上调。',cut:'到家时间不写死；堵车/疲劳时增加休息，必要时临时加住。'}
+  {tm:'06:30-07:00', act:'离店、开始返程', hint:'前夜完成充电计划，早餐打包；早出发但以睡足为前提；核对出发 SOC、轮胎和剩余里程。', cut:'人未休息好就顺延，不用早起制造疲劳。'},
+  {tm:'全天', act:'分段驾驶、休息、充电', hint:'以车机实测能耗与导航为准，准备不止两处可选充电点；安排正餐和休息；到站余量按天气/排队上调。', cut:'到家时间不写死；堵车/疲劳时增加休息，必要时临时加住。'}
  ]}
 ];
 
-/* 渲染日卡 */
-const list=document.getElementById('daylist');
-list.innerHTML=DAYS.map(d=>`
-<article class="day rv" id="${d.id}">
-  <div class="day-head">
-    <div class="dno">${d.no}</div>
-    <div class="dtt">
-      <p class="dt1">${d.date} · ${d.wk}</p>
-      <p class="dt2">${d.city}</p>
-      <p class="meta">${d.meta}</p>
-      <p class="plan">${d.plan}</p>
-    </div>
-  </div>
-  <div class="tl">
-    ${d.segs.map(s=>`
-    <div class="sg">
-      <span class="tm">${s.tm}</span><span class="rl"><i></i></span>
-      <div class="bd"><p class="act">${s.act}</p><p class="hint">${s.hint}</p></div>
-    </div>`).join('')}
-  </div>
-  <div class="alt">
-    <button class="alt-btn" type="button" aria-expanded="false">
-      <span>当天备选与删减 · ${d.segs.length} 条</span><span class="ar">↓</span>
-    </button>
-    <div class="alt-body"><ul class="alt-list">
-      <li><span class="lt">执行提醒</span><span>${d.note}</span></li>
-      ${d.segs.map(s=>`<li><span class="lt">${s.tm}</span><span>${s.cut}</span></li>`).join('')}
-    </ul></div>
-  </div>
-</article>`).join('');
+const DAY_META = [
+  {id:'d1', chip:'9/30', short:'出发', img:null, alt:'', stay:0},
+  {id:'d2', chip:'10/1', short:'福州', img:'img/fuzhou.jpg', alt:'福州老街的骑楼和榕树', stay:1},
+  {id:'d3', chip:'10/2', short:'平潭南', img:'img/pingtan-south.jpg', alt:'平潭南线的沙滩和礁石', stay:2},
+  {id:'d4', chip:'10/3', short:'平潭北', img:'img/pingtan-north.jpg', alt:'平潭北线远处的风车和海', stay:3},
+  {id:'d5', chip:'10/4', short:'厦门', img:'img/xiamen.jpg', alt:'厦门傍晚的小渔港', stay:4},
+  {id:'d6', chip:'10/5', short:'鼓浪屿', img:'img/gulangyu.jpg', alt:'鼓浪屿通向海边的老巷', stay:5},
+  {id:'d7', chip:'10/6', short:'离厦', img:null, alt:'', stay:6},
+  {id:'d8', chip:'10/7', short:'回家', img:null, alt:'', stay:-1}
+];
 
-/* 折叠 */
-list.querySelectorAll('.day').forEach(day=>{
-  const btn=day.querySelector('.alt-btn'),body=day.querySelector('.alt-body');
-  btn.addEventListener('click',()=>{
-    const open=day.classList.toggle('alt-open');
-    btn.setAttribute('aria-expanded',open);
-    body.style.maxHeight=open?body.scrollHeight+'px':'0px';
-  });
-});
-window.addEventListener('resize',()=>{
-  document.querySelectorAll('.day.alt-open .alt-body').forEach(b=>b.style.maxHeight=b.scrollHeight+'px');
-});
+const STAYS = [
+  {id:'stay-d1', day:'d1', date:'09.30', name:'福州 · 艾思顿S酒店（东二环泰禾广场店）', detail:'已选定，订单待核 · 过渡夜仅休息 · 长乐北路立洲大厦 3A，车库入口与跨夜保房需向前台确认', status:'已选定，待核', on:true, price:'¥300', note:'旧占位'},
+  {id:'stay-d2', day:'d2', date:'10.01', name:'福清 · 宏路 / 清昌大道西段', detail:'未选定 · 经济型过渡夜，次日进平潭 · 核免费停车与安静房型', status:'还没订', on:false, price:'¥280', note:''},
+  {id:'stay-d3', day:'d3', date:'10.02', name:'平潭 · 县城万宝路 / 翠园路一带', detail:'未选定 · 平潭唯一住宿夜 · 国庆价差大，核房型、退订、是否临街吵', status:'还没订', on:false, price:'¥650', note:''},
+  {id:'stay-d4', day:'d4', date:'10.03', name:'莆田涵江 · 次日 G15 入口便利区', detail:'未选定 · 过一夜不做深度游 · 晚饭时补电，晚到提前电话保房', status:'还没订', on:false, price:'¥280', note:''},
+  {id:'stay-d5', day:'d5', date:'10.04', name:'厦门 · 吕厝 / 江头 / SM 周边', detail:'未选定 · 连住第 1 夜 · 车留酒店，核心区短打车', status:'还没订', on:false, price:'¥500', note:''},
+  {id:'stay-d6', day:'d6', date:'10.05', name:'厦门 · 同一酒店，不换房', detail:'未选定 · 连住第 2 夜 · 提前说连续住同房型，鼓浪屿当天轻装出行', status:'还没订', on:false, price:'¥500', note:''},
+  {id:'stay-d7', day:'d7', date:'10.06', name:'晋江 · G15 便利区（池店优先）', detail:'未选定 · 返程前早睡夜 · 前晚完成返程首段电量', status:'还没订', on:false, price:'¥350', note:''}
+];
 
-/* 倒计时 */
-const T0=new Date('2026-09-30T13:30:00+08:00').getTime();
-const cdD=document.getElementById('cd-d'),cdH=document.getElementById('cd-h'),
-      cdM=document.getElementById('cd-m'),cdS=document.getElementById('cd-s'),
-      cap=document.getElementById('cd-cap');
-function tick(){
-  let diff=T0-Date.now();
-  if(diff<=0){cap.textContent='旅途已开启，一路平安 ♥';cdD.textContent='0';cdH.textContent='0';cdM.textContent='0';cdS.textContent='0';return;}
-  const d=Math.floor(diff/864e5);diff-=d*864e5;
-  const h=Math.floor(diff/36e5);diff-=h*36e5;
-  const m=Math.floor(diff/6e4);diff-=m*6e4;
-  cdD.textContent=d;cdH.textContent=h;cdM.textContent=m;cdS.textContent=Math.floor(diff/1e3);
+const BUDGET = [
+  {name:'住宿 · 7 晚', detail:'300 / 280 / 650 / 280 / 500 / 500 / 350，均为预算假设', amount:2860, show:'¥2,860'},
+  {name:'餐饮 · 8 天', detail:'两人 × 8 天 × 每日 ¥120，正餐早餐小吃全含', amount:1920, show:'¥1,920'},
+  {name:'充电 · 全程', detail:'2,800 km × 20 kWh/100km × ¥1.8，保守口径', amount:1008, show:'¥1,008'},
+  {name:'短途打车 · 厦门核心区', detail:'两人共用总额', amount:400, show:'¥400'},
+  {name:'停车 · 8 天预留', detail:'酒店免费停车可下调', amount:320, show:'¥320'},
+  {name:'门票船票', detail:'68海里 76 ＋ 船票 70 ＋ 日光岩 100 ＋ 菽庄花园 60，含待核旧价', amount:306, show:'¥306'},
+  {name:'高速通行 · 预留', detail:'免费条件未核，先留余量', amount:300, show:'¥300'},
+  {name:'其他 · 饮水零碎', detail:'不含大件购物与临时加住', amount:200, show:'¥200'},
+  {name:'备用金 10%', detail:'用于拥堵、改期等波动', amount:731.4, show:'¥731.4', sub:true}
+];
+const TOTAL = 8045.4;
+
+const STOPS = [
+  {city:'桐乡', when:'09.30 · 13:30 出发', drive:'约 9 h · 温州方向晚餐＋补电', go:'d1', end:true},
+  {city:'福州', when:'09.30 深夜 · 住晋安区', drive:'约 2 h · 三坊七巷 · 烟台山', go:'d2', end:false},
+  {city:'福清 → 平潭', when:'10.01-10.03 · 南线 + 北线', drive:'南线约 2 h · 北线离岛约 3.5 h', go:'d3', end:false},
+  {city:'涵江', when:'10.03 晚 · 近高速过夜', drive:'约 3.2 h', go:'d4', end:false},
+  {city:'厦门', when:'10.04-10.06 · 连住两晚 · 鼓浪屿', drive:'约 2.8 h', go:'d5', end:false},
+  {city:'晋江', when:'10.06 晚 · 返程前夜', drive:'约 10.5 h（仅驾驶测算）', go:'d7', end:false},
+  {city:'桐乡', when:'10.07 · 回家', drive:'', go:'d8', end:true}
+];
+
+const TASKS = [
+  {id:'ferry', group:'现在', when:'现在优先', text:'核对鼓浪屿本人有效船票：10/5、09:10、东渡→内厝澳、两位乘船人及付款状态，原表不是凭证'},
+  {id:'hotels', group:'现在', when:'现在优先', text:'落实其余 6 晚酒店，并核首晚订单；厦门两晚同酒店同房型'},
+  {id:'release', group:'现在', when:'现在', text:'确认船票放售与余票：官方 15 日含当日、09:00 放第 15 天'},
+  {id:'hold', group:'出发前', when:'出发前', text:'艾思顿S酒店跨夜保房：告知可能凌晨到店，留存保房答复与车库入口定位'},
+  {id:'parking', group:'出发前', when:'下单前', text:'问清 7 晚停车权益：是否免费 / 保证车位、车库入口、限高、夜间出入，充电另问'},
+  {id:'temple', group:'出发前', when:'出发前', text:'南普陀最新预约窗口：只从寺院正规平台操作'},
+  {id:'pingtan', group:'出发前', when:'9/29 及 10/2-3 早晨', text:'核平潭国庆管制与停车：查平潭交警 / 景区当日通告'},
+  {id:'xiamen', group:'出发前', when:'9/29 及 10/4 入厦前', text:'核厦门核心区通行：不复制 2025 年单双号与接驳规则'},
+  {id:'car', group:'出发前', when:'9/29', text:'轮胎、雨刷、胎压、ETC 检查；证件、充电宝、雨具、防晒装包'},
+  {id:'weather', group:'出发前', when:'9/29 起逐日', text:'看平潭 / 厦门天气预警与风浪：只用临近预报做决策'},
+  {id:'charge', group:'出发前', when:'9/30 出门前', text:'出发前完成补电：主站与备用站都确认，车机终点设为酒店完整门店'},
+  {id:'boat', group:'路上', when:'10/4 晚、10/5 早', text:'核轮渡运行与退改消息：9/1 起新退改口径，订单规则优先'},
+  {id:'return', group:'路上', when:'10/6 晚', text:'准备返程电量与早餐：次晨出发与首个可用站之间留合理余量'}
+];
+
+const RULES = [
+  {hard:true, html:'<strong>所有新增点都可删，休息和赶船缓冲不可删。</strong>这是整本路书唯一不许商量的一条。'},
+  {hard:false, html:'删景点不删正餐：午饭、坐休、补水永远排在打卡前面，不用零食代替休息。'},
+  {hard:false, html:'疲劳时不开车，不把辅助驾驶当休息；困了就进正规停车场或服务区，必要时临时加住。'},
+  {hard:false, html:'到家时间不写死：10.5 h 只是驾驶测算，堵车、排队、吃饭都另算。'},
+  {hard:false, html:'替换不叠加：上下杭之于烟台山、植物园之于南普陀、集美之于黄厝，一次只选一种。'}
+];
+
+const DAY_BY_DATE = {
+  '2026-09-30':'d1','2026-10-01':'d2','2026-10-02':'d3','2026-10-03':'d4',
+  '2026-10-04':'d5','2026-10-05':'d6','2026-10-06':'d7','2026-10-07':'d8'
+};
+const START = new Date('2026-09-30T13:30:00+08:00').getTime();
+const AFTER = new Date('2026-10-08T00:00:00+08:00').getTime();
+const CHECK_KEY = 'shanhai-2026-checks';
+const GLANCE_KEY = 'shanhai-2026-glance';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-tick();setInterval(tick,1000);
+function plain(s) { return esc(String(s).replaceAll('—','，').replaceAll('–','-')); }
 
-/* 滚动淡入 */
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}
-}),{threshold:.1,rootMargin:'0px 0px -4% 0px'});
-document.querySelectorAll('.rv').forEach(n=>io.observe(n));
+let memoryChecks = null;
+function loadChecks() {
+  try {
+    const raw = localStorage.getItem(CHECK_KEY);
+    memoryChecks = raw ? JSON.parse(raw) : {};
+    if (!memoryChecks || typeof memoryChecks !== 'object') memoryChecks = {};
+  } catch (e) {
+    if (!memoryChecks) memoryChecks = {};
+  }
+  return memoryChecks;
+}
+function saveChecks(data) {
+  memoryChecks = data;
+  try { localStorage.setItem(CHECK_KEY, JSON.stringify(data)); } catch (e) {}
+}
+function phase() {
+  const now = Date.now();
+  if (now >= AFTER) return 'after';
+  if (now >= START) return 'during';
+  return 'before';
+}
+function shanghaiYMD() {
+  return new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Shanghai', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
+}
+function tripHash() {
+  if (phase() === 'during') return '#' + (DAY_BY_DATE[shanghaiYMD()] || 'd1');
+  if (phase() === 'after') return '#d8';
+  return '#d1';
+}
+function departText() {
+  const now = Date.now();
+  if (now >= AFTER) return '已经到家';
+  if (now >= START) {
+    const id = DAY_BY_DATE[shanghaiYMD()];
+    const day = DAYS.find(d => d.id === id);
+    const meta = DAY_META.find(d => d.id === id);
+    return day ? '今天是 ' + day.date + '，' + meta.short : '这几天在路上';
+  }
+  let diff = START - now;
+  const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+  const h = Math.floor(diff / 36e5);
+  if (d <= 0 && h <= 0) return '不到 1 小时就出发';
+  if (d <= 0) return '还有 ' + h + ' 小时出发';
+  return '还有 ' + d + ' 天 ' + h + ' 小时出发';
+}
 
-/* 吸顶导航 + scrollspy */
-const nav=document.getElementById('nav');
-new IntersectionObserver(es=>es.forEach(e=>{
-  nav.classList.toggle('show',!e.isIntersecting);
-}),{threshold:.1}).observe(document.getElementById('hero'));
-const links=[...document.querySelectorAll('#nav a')];
-const spyMap=new Map(links.map(a=>[a.dataset.spy,a]));
-const spy=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting){
-      links.forEach(a=>a.classList.remove('act'));
-      const a=spyMap.get(e.target.id);
-      if(a){a.classList.add('act');a.scrollIntoView({block:'nearest',inline:'center'});}
-    }
+let focusTask = null;
+let primed = false;
+let state = {view:'overview', day:null, scroll:null};
+
+function parseHash(hash) {
+  const h = (hash || '').replace(/^#/, '');
+  if (!h || h === 'overview') return {view:'overview', day:null, scroll:null};
+  if (h === 'route') return {view:'overview', day:null, scroll:'route'};
+  if (/^d[1-8]$/.test(h)) return {view:'day', day:h, scroll:null};
+  if (h === 'stay' || h === 'budget' || h === 'tips') return {view:h, day:null, scroll:null};
+  if (/^stay-d[1-7]$/.test(h)) return {view:'stay', day:null, scroll:h};
+  return {view:'overview', day:null, scroll:null};
+}
+function specNow() {
+  if (!location.hash) {
+    const id = phase() === 'during' ? DAY_BY_DATE[shanghaiYMD()] : null;
+    if (id) return {view:'day', day:id, scroll:null};
+    return {view:'overview', day:null, scroll:null};
+  }
+  return parseHash(location.hash);
+}
+
+function build() {
+  const checks = loadChecks();
+  document.getElementById('rail-days').innerHTML = DAY_META.map(m =>
+    '<a class="rail-day" href="#' + m.id + '" data-day="' + m.id + '"><small>' + m.chip + '</small><span>' + esc(m.short) + '</span></a>'
+  ).join('');
+  document.getElementById('daystrip').innerHTML = DAY_META.map(m =>
+    '<a class="chip" href="#' + m.id + '" data-day="' + m.id + '"><small>' + m.chip + '</small><b>' + esc(m.short) + '</b></a>'
+  ).join('');
+  document.getElementById('stops').innerHTML = STOPS.map(s =>
+    '<a class="stop' + (s.end ? ' end' : '') + '" href="#' + s.go + '"><i></i><span class="city">' + plain(s.city) + '</span><span class="when">' + plain(s.when) + '</span>' +
+    (s.drive ? '<span class="drive">' + plain(s.drive) + '</span>' : '') + '</a>'
+  ).join('');
+  document.getElementById('dayroot').innerHTML = DAYS.map((d, i) => {
+    const meta = DAY_META[i];
+    const stay = meta.stay >= 0 ? STAYS[meta.stay] : null;
+    const prev = i > 0 ? DAYS[i - 1].id : '';
+    const next = i < DAYS.length - 1 ? DAYS[i + 1].id : '';
+    const photo = meta.img ? '<img class="day-photo" src="' + meta.img + '" alt="' + esc(meta.alt) + '" width="1800" height="1012">' : '';
+    const chip = stay
+      ? '<a class="stay-chip" href="#' + stay.id + '">住 ' + plain(stay.name) + ' · ' + plain(stay.status) + '</a>'
+      : '<p class="stay-chip static">今晚到家，不住酒店</p>';
+    const segs = d.segs.map(s =>
+      '<article class="seg"><p class="tm">' + plain(s.tm) + '</p><h2 class="act">' + plain(s.act) + '</h2><p class="how"><span class="lab">怎么走</span>' + plain(s.hint) + '</p><p class="cut"><span class="lab">可以不做</span>' + plain(s.cut) + '</p></article>'
+    ).join('');
+    return '<article class="day is-off" id="' + d.id + '">' + photo +
+      '<p class="day-date">' + plain(d.date) + ' ' + plain(d.wk) + '</p><h1>' + plain(d.city) + '</h1>' +
+      '<p class="meta">' + plain(d.meta) + '</p><p class="plan">' + plain(d.plan) + '</p>' + chip +
+      '<p class="note day-note-inline"><span class="lab">执行提醒</span>' + plain(d.note) + '</p>' +
+      segs +
+      '<div class="pager print-hide">' +
+        (prev ? '<a href="#' + prev + '">前一天</a>' : '<span></span>') +
+        (next ? '<a href="#' + next + '">后一天</a>' : '') +
+      '</div></article>';
+  }).join('');
+  document.getElementById('stay-list').innerHTML = STAYS.map(s =>
+    '<a class="stay" id="' + s.id + '" href="#' + s.day + '"><span class="date">' + s.date + '</span><span class="pill' + (s.on ? ' on' : '') + '">' + plain(s.status) + '</span><span class="price">' + s.price + (s.note ? '<small>' + plain(s.note) + '</small>' : '') + '</span><span class="name">' + plain(s.name) + '</span><p class="ask">' + plain(s.detail) + '</p></a>'
+  ).join('');
+  document.getElementById('budget-list').innerHTML = BUDGET.map(b => {
+    const pct = Math.max(1.5, (b.amount / TOTAL) * 100);
+    return '<div class="brow' + (b.sub ? ' sub' : '') + '"><div class="brow-top"><span class="bname">' + plain(b.name) + '</span><span class="bamt">' + b.show + '</span></div><p class="bdetail">' + plain(b.detail) + '</p><span class="bar" style="width:' + pct.toFixed(2) + '%"></span></div>';
+  }).join('');
+  const groups = ['现在', '出发前', '路上'];
+  document.getElementById('task-groups').innerHTML = groups.map(g => {
+    const items = TASKS.filter(t => t.group === g).map(t =>
+      '<li><label class="task"><input type="checkbox" id="task-' + t.id + '" data-id="' + t.id + '"' + (checks[t.id] ? ' checked' : '') + '><span class="task-text">' + plain(t.text) + '</span><span class="when">' + plain(t.when) + '</span></label></li>'
+    ).join('');
+    return '<section class="group"><h2>' + g + '</h2><ul class="tasks">' + items + '</ul></section>';
+  }).join('');
+  document.getElementById('rules').innerHTML = RULES.map(r =>
+    '<p class="rule' + (r.hard ? ' hard' : '') + '">' + r.html + '</p>'
+  ).join('');
+  renderOpen();
+  const glanceOn = (() => { try { return localStorage.getItem(GLANCE_KEY) === '1'; } catch (e) { return false; } })();
+  document.body.classList.toggle('glance', glanceOn);
+  const gbtn = document.getElementById('glance');
+  gbtn.setAttribute('aria-pressed', glanceOn ? 'true' : 'false');
+  gbtn.textContent = glanceOn ? '看完整说明' : '只看做什么';
+  gbtn.addEventListener('click', () => {
+    const on = !document.body.classList.contains('glance');
+    document.body.classList.toggle('glance', on);
+    gbtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    gbtn.textContent = on ? '看完整说明' : '只看做什么';
+    try { localStorage.setItem(GLANCE_KEY, on ? '1' : '0'); } catch (e) {}
   });
-},{rootMargin:'-25% 0px -60% 0px'});
-['route','d1','d2','d3','d4','d5','d6','d7','d8','stay','budget','tips'].forEach(id=>{
-  const n=document.getElementById(id);if(n)spy.observe(n);
-});
+  document.getElementById('task-groups').addEventListener('change', (e) => {
+    const box = e.target;
+    if (!box.matches('input[type=checkbox]')) return;
+    const data = loadChecks();
+    if (box.checked) data[box.dataset.id] = true;
+    else delete data[box.dataset.id];
+    saveChecks(data);
+    renderOpen();
+  });
+  document.addEventListener('click', (e) => {
+    const focused = e.target.closest('[data-focus]');
+    if (focused) focusTask = focused.getAttribute('data-focus');
+    else if (e.target.closest('#cta')) focusTask = 'first-open';
+    else focusTask = null;
+  });
+  arrowNav(document.getElementById('daystrip'));
+  arrowNav(document.getElementById('rail-days'));
+}
+
+function renderOpen() {
+  const checks = loadChecks();
+  const open = TASKS.filter(t => !checks[t.id]).slice(0, 3);
+  const box = document.getElementById('open-list');
+  if (!open.length) {
+    box.innerHTML = '<p class="quiet">清单都勾完了。</p>';
+    return;
+  }
+  box.innerHTML = open.map(t =>
+    '<a class="open-item" href="#tips" data-focus="task-' + t.id + '"><b>' + plain(t.text) + '</b><span>' + plain(t.when) + '</span></a>'
+  ).join('');
+}
+
+function arrowNav(container) {
+  container.addEventListener('keydown', (e) => {
+    if (e.altKey || e.metaKey || e.ctrlKey) return;
+    if (!['ArrowRight','ArrowLeft','ArrowDown','ArrowUp'].includes(e.key)) return;
+    const links = [...container.querySelectorAll('a')];
+    const i = links.indexOf(document.activeElement);
+    if (i < 0) return;
+    const delta = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : -1;
+    const next = links[i + delta];
+    if (!next) return;
+    e.preventDefault();
+    next.click();
+    requestAnimationFrame(() => next.focus());
+  });
+}
+
+function setOff(el, off) {
+  if (!el) return;
+  el.classList.toggle('is-off', off);
+}
+function showContext(dayId) {
+  const meta = DAY_META.find(m => m.id === dayId);
+  const day = DAYS.find(d => d.id === dayId);
+  const stay = meta.stay >= 0 ? STAYS[meta.stay] : null;
+  const box = document.getElementById('context-stay');
+  if (!stay) {
+    box.innerHTML = '<p class="home-line">今晚到家，不住酒店。</p>';
+  } else {
+    box.innerHTML = '<a class="stay" href="#' + stay.id + '"><span class="date">' + stay.date + '</span><span class="pill' + (stay.on ? ' on' : '') + '">' + plain(stay.status) + '</span><span class="price">' + stay.price + '</span><span class="name">' + plain(stay.name) + '</span><p class="ask">' + plain(stay.detail) + '</p></a>';
+  }
+  document.getElementById('context-note').textContent = day.note.replaceAll('—', '，').replaceAll('–', '-');
+}
+
+function render() {
+  state = specNow();
+  const app = document.getElementById('app');
+  app.classList.toggle('has-day', state.view === 'day');
+  setOff(document.getElementById('overview'), state.view !== 'overview');
+  setOff(document.getElementById('dayview'), state.view !== 'day');
+  setOff(document.getElementById('stay'), state.view !== 'stay');
+  setOff(document.getElementById('budget'), state.view !== 'budget');
+  setOff(document.getElementById('tips'), state.view !== 'tips');
+  setOff(document.getElementById('daystrip'), !(state.view === 'overview' || state.view === 'day'));
+  DAYS.forEach(d => setOff(document.getElementById(d.id), !(state.view === 'day' && state.day === d.id)));
+  if (state.view === 'day') showContext(state.day);
+  const navKey = state.view === 'day' ? 'day' : state.view;
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    if (a.dataset.nav === navKey) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  document.querySelectorAll('[data-day]').forEach(a => {
+    if (state.view === 'day' && a.dataset.day === state.day) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  const dockTrip = document.getElementById('dock-trip');
+  dockTrip.href = state.view === 'day' ? '#' + state.day : tripHash();
+  const strip = document.getElementById('daystrip');
+  if (strip && getComputedStyle(strip).display !== 'none') {
+    strip.querySelector('a[aria-current="page"]')?.scrollIntoView({inline:'center', block:'nearest'});
+  }
+  if (primed) {
+    const main = document.getElementById('content');
+    main.classList.remove('fade');
+    void main.offsetWidth;
+    main.classList.add('fade');
+  }
+  if (state.view === 'tips' && focusTask) {
+    const box = focusTask === 'first-open'
+      ? document.querySelector('#task-groups input:not(:checked)')
+      : document.getElementById(focusTask);
+    focusTask = null;
+    settleScroll();
+    if (box) box.focus();
+    return;
+  }
+  settleScroll();
+  requestAnimationFrame(settleScroll);
+  setTimeout(settleScroll, 40);
+}
+function settleScroll() {
+  if (state.scroll) {
+    document.getElementById(state.scroll)?.scrollIntoView({block:'start', behavior:'auto'});
+    return;
+  }
+  window.scrollTo(0, 0);
+}
+
+function tickDepart() {
+  const el = document.getElementById('depart-line');
+  if (el) el.textContent = departText();
+}
+
+build();
+tickDepart();
+render();
+primed = true;
+window.addEventListener('hashchange', render);
+setInterval(tickDepart, 60000);
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 </script>
 </body>
 </html>
